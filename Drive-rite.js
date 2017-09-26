@@ -10,6 +10,7 @@ const PROMPT = require('readline-sync');
 
 //Section 1 -----------------------------------------^
 
+let continueResponse;
 let policyId, lastName, firstName, age;
 let premiumdDueDate, accidentsThreeYears;
 let totalPrice;
@@ -20,31 +21,52 @@ const LANGUAGE = 'English';
 
 
 function main() {
+    process.stdout.write('\x1Bc');
+    if (continueResponse == null) {
+            setContinueResponse();
+    }
+    if (continueResponse === 1) {
+        setpolicyId();
+        setfirstName();
+        setlastName();
+        setage();
+        setpremiumdDueDate();
+        setaccidentsThreeYears();
+        settotalPrice();
+        printResults();
+        setContinueResponse();
+        return main();
+    }
+    printGoodbye();
 
-    setpolicyId();
-    setlastName();
-    setfirstName();
-    setage();
-    setpremiumdDueDate();
-    setaccidentsThreeYears();
-    settotalPrice();
-    printResults();
-    return main();
 }
 
 main();
 
+function setContinueResponse() {
+    if (continueResponse === 1) {
+            continueResponse = Number(PROMPT.question(`\nDo you want to continue? [0=no, 1=yes]: `));
+            if (continueResponse !== 0 && continueResponse !== 1) {
+                 console.log(`${continueResponse} is a incorrect value. Please try again.`);
+                 continueResponse = 1;
+                setContinueResponse();
+            }
+    } else {
+        continueResponse = 1;
+    }
+}
+
 //Section 3 ----------------------------------------^
 
 function setpolicyId() {
-   policyId = Number(PROMPT.question(`\nPlease enter policy number: `));
+   policyId = Math.floor((Math.random()* 5000) + 1);
 }
 function setlastName() {
-    lastName = Number(PROMPT.question(`\nPlease enter last name: `));
+    lastName = (PROMPT.question(`\nPlease enter last name: `));
 }
 
 function setfirstName() {
-    firstName = Number(PROMPT.question(`\nPlease enter first name: `));
+    firstName = (PROMPT.question(`\nPlease enter first name: `));
 }
 
 function setage() {
@@ -59,30 +81,38 @@ function setaccidentsThreeYears() {
    accidentsThreeYears = Number(PROMPT.question(`\nHow many at fault accidents in the last 3 years: `));
 }
 
-function setotalPrice() {
+function settotalPrice() {
     totalPrice = 0;
     const BASE_PRICE = 100,
         UNDER_30 = 30,
         THIRTY_TO_45 = 45,
         SIXTY_AND_OVER = 60,
-        UNDER_30_FEE = 120,
-        THIRTY_TO_45_FEE = 110,
-        SIXTY_AND_OVER_FEE = 130;
+        UNDER_30_FEE = 20,
+        THIRTY_TO_45_FEE = 10,
+        SIXTY_AND_OVER_FEE = 30,
+        ACCIDENTS = 50;
     if (age > 0) {
-        if (age > 0 && age < UNDER_30) {
-            totalPrice = UNDER_30_FEE;
-        } else if (age < THIRTY_TO_45) {
-            totalPrice = THIRTY_TO_45_FEE;
-        } else if (age < SIXTY_AND_OVER) {
-            totalPrice = SIXTY_AND_OVER_FEE;
+        if (age > 15 && age < UNDER_30) {
+            totalPrice = UNDER_30_FEE + BASE_PRICE + (accidentsThreeYears * ACCIDENTS);
+        } else if (age >= UNDER_30 && age < THIRTY_TO_45) {
+            totalPrice = THIRTY_TO_45_FEE + BASE_PRICE + (accidentsThreeYears * ACCIDENTS);
+        } else if (age >= SIXTY_AND_OVER) {
+            totalPrice = SIXTY_AND_OVER_FEE + BASE_PRICE + (accidentsThreeYears * ACCIDENTS);
         }
-
     }
+
 
 }
 
 function printResults() {
-    console.log(`Total Price:   ${totalPrice}`);
+    process.stdout.write('\x1Bc'); //Clears the screen
+    console.log(`\n\t${firstName}'s bill: \$${totalPrice}. Customer#: ${policyId}`);
+}
+
+function printGoodbye() {
+    process.stdout.write('\x1bc');
+    console.log('\n\tGoodbye.');
+
 }
 
 //Section 4 -------------------------------------------^
