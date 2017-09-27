@@ -2,7 +2,7 @@
  *   @author Graus, Michael (grausm@student.ncmich.edu)
  *   @version 0.0.1
  *   @summary Project 2 Drive-rite || created: 03.25.2017
- *   @todo
+ *   @todo nothing
  */
 
 "use strict";
@@ -19,6 +19,11 @@ const LANGUAGE = 'English';
 
 //Section 2 -----------------------------------------^
 
+/**
+ * @method
+ * @desc Dispatch method
+ * @returns {null}
+ */
 
 function main() {
     process.stdout.write('\x1Bc');
@@ -41,6 +46,12 @@ function main() {
 
 }
 
+/**
+ * @method
+ * @desc Do you want to continue
+ * @returns {null}
+ */
+
 main();
 
 function setContinueResponse() {
@@ -58,29 +69,66 @@ function setContinueResponse() {
 
 //Section 3 ----------------------------------------^
 
+/**
+ * @method
+ * @desc Random policy id
+ * @returns {null}
+ */
+
 function setpolicyId() {
    policyId = Math.floor((Math.random()* 5000) + 1);
 }
+
+/**
+ * @method
+ * @desc Enter last name
+ * @returns {null}
+ */
 function setlastName() {
     lastName = (PROMPT.question(`\nPlease enter last name: `));
 }
 
+/**
+ * @method
+ * @desc Enter first name
+ * @returns {null}
+ */
 function setfirstName() {
     firstName = (PROMPT.question(`\nPlease enter first name: `));
 }
 
+/**
+ * @method
+ * @desc Enter age
+ * @returns {null}
+ */
 function setage() {
     age = Number(PROMPT.question(`\nPlease enter age: `));
 }
 
+/**
+ * @method
+ * @desc Enter premium due date
+ * @returns {null}
+ */
 function setpremiumdDueDate() {
     premiumdDueDate = Number(PROMPT.question(`\nPlease enter premium due date: `));
 }
 
+/**
+ * @method
+ * @desc Enter accidents
+ * @returns {null}
+ */
 function setaccidentsThreeYears() {
    accidentsThreeYears = Number(PROMPT.question(`\nHow many at fault accidents in the last 3 years: `));
 }
 
+/**
+ * @method
+ * @desc Total price
+ * @returns {null}
+ */
 function settotalPrice() {
     totalPrice = 0;
     const BASE_PRICE = 100,
@@ -104,11 +152,21 @@ function settotalPrice() {
 
 }
 
+/**
+ * @method
+ * @desc Output final price
+ * @returns {null}
+ */
 function printResults() {
     process.stdout.write('\x1Bc'); //Clears the screen
     console.log(`\n\t${firstName}'s bill: \$${totalPrice}. Customer#: ${policyId}`);
 }
 
+/**
+ * @method
+ * @desc Output goodbye
+ * @returns {null}
+ */
 function printGoodbye() {
     process.stdout.write('\x1bc');
     console.log('\n\tGoodbye.');
